@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_container_user,access_container_user,model_scp_container,base.group_user,1,1,1,1
+access_port_user,access_port_user,model_scp_port,base.group_user,1,1,1,1
+access_vessel_user,access_vessel_user,model_scp_vessel,base.group_user,1,1,1,1
+access_supplier_category_user,access_supplier_category_user,model_scp_supplier_category,base.group_user,1,1,1,1
+

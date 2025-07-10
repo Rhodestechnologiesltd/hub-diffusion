@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem
+        id="scp_root" 
+        name="SCP"
+        sequence="-1"/>
+    
+    <menuitem
+        id="scp_cadencier_main"
+        name="Cadenciers"
+        parent="scp_root"
+        sequence="10"/>
+
+    <menuitem
+        id="scp_config"
+        name="Configuration"
+        parent="scp_root"
+        sequence="50"/>
+
+</odoo>

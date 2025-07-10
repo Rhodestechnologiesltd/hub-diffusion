@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_price_change_category">   
+            <field name="name">Price Change</field>   
+            <field name="description">Price Change</field>    
+            <field name="sequence">-1</field>
+        </record>
+
+        <record id="group_user" model="res.groups">
+            <field name="name">View Price Changes</field>
+            <field name="category_id" ref="module_price_change_category"/>
+        </record>
+
+    </data>
+</odoo>

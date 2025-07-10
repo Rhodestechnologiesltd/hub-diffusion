@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pc_res_config_settings_view" model="ir.ui.view">
+        <field name="name">pc.res.config.settings.view</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='product_general_settings']" position="after">
+	    		<block title="Price Change" id="price_change_settings" name="price_change_settings_container">
+                    <field name="company_id" invisible="1" />
+                    <!-- <setting>
+                        <field name="allow_manual_change"/>
+                    </setting> -->
+                    <setting>
+                        <field name="pc_sale"/>
+                    </setting>
+                    <!-- <setting invisible="not allow_manual_change">
+                        <field name="pc_manual"/>
+                    </setting> -->
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+                    

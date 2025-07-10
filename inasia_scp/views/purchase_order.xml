@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="scp_purchase_order_form" model="ir.ui.view">
+        <field name="name">scp.purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_confirm_pricing" class="btn-primary" string="Confirm Pricing" type="object"/> 
+            </xpath>
+            <xpath expr="//page[@name='products']" position="after">
+                <page name="proforma" string="Proforma">
+                    <div style="text-align: center;">
+                        <button name="validate_proforma" class="btn-success" string="Validate"/>
+                    </div>
+                    <field name="supplier_proforma" widget="pdf_viewer"/>
+                </page>
+                <page name="invoice" string="Invoice">
+                    <div style="text-align: center;">
+                        <button name="validate_invoice" class="btn-success" string="Validate"/>
+                    </div>
+                    <field name="supplier_invoice" widget="pdf_viewer"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_scp_purchase_pricing_form" model="ir.ui.view">
+       <field name="name">scp.purchase.pricing.form</field>
+       <field name="model">purchase.order</field>
+       <field name="arch" type="xml">
+           <form>
+                <field name="order_line">
+                    <tree delete="0" decoration-success="pricing_state == 'confirm'" decoration-info="pricing_state == 'draft'">
+                        <field name="name"/>
+                        <field name="price_unit"/>
+                        <field name="pricing_state" widget="badge" decoration-success="pricing_state == 'confirm'" decoration-info="pricing_state == 'draft'"/>
+                        <button name="action_validate" type="object" icon="fa-check" invisible="pricing_state != 'draft'"/>
+                    </tree>
+                </field>
+           </form>
+       </field>
+   </record>
+
+</odoo>

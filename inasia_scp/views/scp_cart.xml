@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="scp_cart_progress" inherit_id="website_sale.cart" customize_show="True" priority="20">
+        <xpath expr="//div[hasclass('col')]" position="inside">
+            <span>Test</span>
+        </xpath>
+    </template>
+
+</odoo>

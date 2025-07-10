@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Tree View for Product Price Change -->
+        <record id="view_sale_product_price_change_tree" model="ir.ui.view">
+            <field name="name">custom.product.price.change.tree</field>
+            <field name="model">product.price.change</field>
+            <field name="arch" type="xml">
+                <tree string="Product Price Change" create="0" edit="0"
+                      decoration-success="value_change == 'increase'" 
+                      decoration-danger="value_change == 'decrease'">
+                    <field name="product_id"/>
+                    <field name="old_list_price"/>
+                    <field name="new_list_price"/>
+                    <field name="change_date"/>
+                    <field name="user_id" optional="hide"/>
+                    <field name="change_type" column_invisible="True"/>
+                    <field name="value_change" column_invisible="True"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sale_order_form_inherit_price_change" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.price.change.button</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="previous_selling_price" string="Previous Selling Price"/>
+                    <field name="price_change" column_invisible="True"/>
+                    <button name="action_open_price_change" 
+                            type="object"  
+                            icon="fa-line-chart"
+                            decoration-success="price_change == 'increase'" 
+                            decoration-danger="price_change == 'decrease'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="custom_product_price_change_action" model="ir.actions.act_window">
+            <field name="name">Product Price Changes</field>
+            <field name="res_model">product.price.change</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('change_type', '=', 'sale_price')]</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="scp_sale_order_form" model="ir.ui.view">
+        <field name="name">scp.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" name="button_dropdown" type="button" id="button_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="button_dropdown">
+                      <!-- <li><button name="split_order" icon="fa-scissors" string="Split" type="object" class="btn-mute"/> </li> -->
+                      <!-- <li><button name="generate_purchase_order" icon="fa-envelope-open" string="Generate RFQ" type="object" class="btn-mute"/></li> -->
+                      <li><button name="generate_purchase_order_shop" icon="fa-envelope-open" string="Generate RFQ" type="object" class="btn-mute"/></li>
+                      <li><button name="action_confirm_pricing" icon="fa-check-square-o" string="Confirm Pricing" type="object" class="btn-mute"/></li>
+                    </ul>
+                </div>
+            </xpath>
+            <xpath expr="//header" position="after">
+              <div class="alert alert-info text-center" role="alert">
+                <div>
+                    <h3>
+                        <strong>
+                          <span>Next: </span>
+                          <field name="comment" readonly="True"/>
+                        </strong>
+                    </h3>
+                </div>
+              </div>
+            </xpath>
+            <xpath expr="//group[@name='partner_details']" position="inside">
+              <field name="contact_person"/>
+              <field name="forwarder_id"/>
+            </xpath>
+            <xpath expr="//group[@name='order_details']" position="inside">
+              <field name="incoterm"/>
+            </xpath>
+            <xpath expr="//group[@name='sale_header']" position="after">
+              <hr/>
+              <group>
+                <group name="container_details">
+                  <field name="container_type" widget="selection_badge" string=" "/>
+                  <field name="container_id" invisible="container_type == 'lcl'"/>
+                  <label for="actual_volume" string="Volume"/>
+                  <div class="oe_inline">
+                    <field name="actual_volume" class="oe_inline"/>
+                     / 
+                    <field name="available_volume" class="oe_inline" invisible="container_type == 'lcl'"/>
+                    (<field name="container_capacity" class="oe_inline" invisible="container_type == 'lcl'" widget="percentage"/>)
+                  </div>
+                </group>
+                <group>
+                  <field name="cargo_ready_date"/>
+                  <field name="qc_schedule"/>
+                  <field name="loading_date"/>
+                </group>
+              </group>
+              <hr/>
+              <div class="accordion accordion-flush" id="checklist_accordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="checklist_heading">
+                    <button name="checklist_accordion" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#checklist_collapse" aria-expanded="true" aria-controls="checklist_collapse">
+                      <strong>Checklist</strong>
+                    </button>
+                  </h2>
+                  <div id="checklist_collapse" class="accordion-collapse collapse" aria-labelledby="checklist_heading" data-bs-parent="#checklist_accordion">
+                    <div class="accordion-body">
+                        <group>
+                          <field name="is_purchase_generated" widget="boolean_toggle" readonly="True"/>
+                          <field name="is_purchase_confirmed" widget="boolean_toggle" readonly="True"/>
+                          <field name="is_price_validated" widget="boolean_toggle" readonly="True"/>
+                        </group>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+            </xpath>
+            <xpath expr="//page[@name='order_lines']" position="after">
+              <page name="supplier" string="Suppliers">
+                <field name="purchase_ids">
+                  <tree>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                  </tree>
+                </field>
+              </page>
+              <page name="order_processing" string="Documents">
+                  <group name="docs" string="Documents">
+                      <group name="supplier_docs" string="Supplier">
+                      </group>
+                      <group name="customer_docs" string="Customer">
+                      </group>
+                  </group>
+              </page>
+              <page name="supplychain" string="Supply Chains">
+                <group name="supplychain_docs">
+                </group>
+              </page>
+              <page name="logistics" string="Logistics">
+                  <group>
+                    <group>
+                      <field name="shipper_id"/>
+                      <field name="consignee_id"/>
+                      <field name="notify_id"/>
+                    </group>
+                    <group>
+                      <field name="shipping_company_id"/>
+                      <field name="booking_num"/>
+                      <field name="freight"/>
+                    </group>
+                  </group>
+                  <hr/>
+                  <group>
+                    <group>
+                      <field name="vessel_id"/>
+                      <field name="loading_port"/>
+                      <field name="discharge_port"/>
+                    </group>
+                    <group>
+                      <field name="departure_date"/>
+                      <field name="arrival_date"/>
+                    </group>
+                  </group>
+                  <hr/>
+                  <group>
+                    <group>
+                      <field name="container_num"/>
+                      <field name="seal_num"/>
+                    </group>
+                    <group>
+                      <field name="gross_weight"/>
+                      <field name="net_weight"/>
+                    </group>
+                  </group>
+                  <group>
+                    <group>
+                      <field name="package"/>
+                      <field name="order_qty"/>
+                    </group>
+                    <group>
+                      <field name="actual_volume" string="Total Volume"/>
+                      <field name="order_value"/>
+                    </group>
+                  </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='order_lines']" position="attributes">
+              <attribute name="string">Selection</attribute>
+            </xpath>
+            <xpath expr="//page[@name='other_information']" position="attributes">
+              <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//page[@name='customer_signature']" position="attributes">
+              <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    
+    <record id="scp_sale_order_tree" model="ir.ui.view">
+      <field name="name">scp.sale.order.tree</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.sale_order_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='invoice_status']" position="attributes">
+            <attribute name="optional">hide</attribute>
+        </xpath>
+        <xpath expr="//field[@name='activity_ids']" position="attributes">
+            <attribute name="column_invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='commitment_date']" position="attributes">
+            <attribute name="column_invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='expected_date']" position="attributes">
+            <attribute name="column_invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='company_id'][1]" position="attributes">
+            <attribute name="optional">hide</attribute>
+        </xpath>
+        <xpath expr="//field[@name='company_id']" position="after">
+          <field name="cargo_ready_date"/>
+          <field name="qc_schedule" optional="show"/>
+          <field name="loading_date" string="Loading"/>
+          <field name="loading_port" string="POL" optional="show"/>
+          <field name="departure_date"/>
+          <field name="discharge_port" string="POD" optional="show"/>
+          <field name="container_num"/>
+          <field name="actual_volume" string="Volume (m3)"/>
+          <field name="incoterm"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="scp_remove_optional_products" model="ir.ui.view">
+        <field name="name">scp.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_management.sale_order_form_quote"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='optional_products']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_scp_sale_pricing_form" model="ir.ui.view">
+       <field name="name">scp.sale.pricing.form</field>
+       <field name="model">sale.order</field>
+       <field name="arch" type="xml">
+           <form>
+                <field name="order_line">
+                    <tree delete="0" decoration-success="pricing_state == 'confirm'" decoration-info="pricing_state == 'draft'">
+                        <field name="name"/>
+                        <field name="price_unit"/>
+                        <field name="pricing_state" widget="badge" decoration-success="pricing_state == 'confirm'" decoration-info="pricing_state == 'draft'"/>
+                        <button name="action_validate" type="object" icon="fa-check" invisible="pricing_state != 'draft'"/>
+                    </tree>
+                </field>
+           </form>
+       </field>
+   </record>
+
+</odoo>

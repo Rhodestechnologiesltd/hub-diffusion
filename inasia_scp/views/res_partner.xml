@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="scp_res_partner_form" model="ir.ui.view">
+        <field name="name">scp.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="is_shop" widget="boolean_toggle"/>
+                <field name="shop_num" invisible="not is_shop"/>
+                <field name="has_export_licence" widget="boolean_toggle"/>
+                <field name="business_licence"/>
+                <field name="supplier_licence"/>
+                <field name="delivery_time"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

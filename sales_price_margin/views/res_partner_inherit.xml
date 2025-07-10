@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sales_price_contact_form_view" model="ir.ui.view">
+        <field name="name">sales.price.contact.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="margin_percentage" widget="percentage" string="Profit Margin"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

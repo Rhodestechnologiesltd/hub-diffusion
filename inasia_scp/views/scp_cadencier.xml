@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_scp_cadencier_tree" model="ir.ui.view">
+        <field name="name">scp.cadencier.tree</field>
+        <field name="model">scp.cadencier</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="supplier_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_scp_cadencier_form" model="ir.ui.view">
+        <field name="name">scp.cadencier.form</field>
+        <field name="model">scp.cadencier</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="supplier_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_scp_cadencier" model="ir.actions.act_window">
+        <field name="name">Cadenciers</field>
+        <field name="res_model">scp.cadencier</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Cadenciers</p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_scp_cadencier"
+        name="All"
+        parent="scp_cadencier_main"
+        action="action_scp_cadencier"
+        sequence="10"/>
+
+</odoo>
