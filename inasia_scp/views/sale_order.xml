@@ -35,9 +35,7 @@
               <field name="contact_person"/>
               <field name="forwarder_id"/>
             </xpath>
-            <xpath expr="//group[@name='order_details']" position="inside">
-              <field name="incoterm"/>
-            </xpath>
+            
             <xpath expr="//group[@name='sale_header']" position="after">
               <hr/>
               <group>
