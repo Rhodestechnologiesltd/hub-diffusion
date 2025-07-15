@@ -168,7 +168,7 @@ class SaleOrder(models.Model):
             if line.supplier_id.is_shop:
                 existing_purchase_dongbo = self.env['purchase.order'].search([('company_id', '=', self.env.ref('base.main_company').id),('partner_id','=', dongbo.partner_id.id),('state', 'in', ['draft'])], limit=1)
                 if existing_purchase_dongbo:
-                    for purchase in existing_purchase:
+                    for purchase in existing_purchase_dongbo:
                         order = purchase
                 else:
                     order_vals = {
